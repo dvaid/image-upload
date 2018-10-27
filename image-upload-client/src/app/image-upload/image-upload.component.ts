@@ -23,8 +23,10 @@ export class ImageUploadComponent implements OnInit {
       this.selectedFile = event.target.files[0];
       reader.readAsDataURL(this.selectedFile); // read file as data url
 
-      reader.onload = (event) => { // called once readAsDataURL is completed
-        this.url = event.target.result;
+      reader.onload = (uploadProgressEvent) => { // called once readAsDataURL is completed
+        if (uploadProgressEvent.target.result) {
+          this.url = uploadProgressEvent.target.result;
+        }
       };
     }
   }
