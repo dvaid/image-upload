@@ -24,9 +24,7 @@ export class ImageUploadComponent implements OnInit {
       reader.readAsDataURL(this.selectedFile); // read file as data url
 
       reader.onload = (uploadProgressEvent) => { // called once readAsDataURL is completed
-        if (uploadProgressEvent.target.result) {
-          this.url = uploadProgressEvent.target.result;
-        }
+        this.url = reader.result;
       };
     }
   }
