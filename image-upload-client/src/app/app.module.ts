@@ -13,7 +13,8 @@ import { FacebookModule } from "ngx-facebook";
 import { UrlPermission } from "./urlPermission/url.permission";
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, MatProgressBarModule } from '@angular/material';
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './services/auth-interceptor.service';
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatProgressBarModule,
     HttpClientModule
   ],
-  providers: [AuthService, AccountService, UrlPermission],
+  providers: [AuthService, AccountService, UrlPermission, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
