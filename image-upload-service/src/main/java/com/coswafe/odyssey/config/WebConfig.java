@@ -8,7 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -32,7 +33,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
 	// be in a database, LDAP or in memory.
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(appUserDetailsService);
+		auth.userDetailsService(appUserDetailsService).passwordEncoder(passwordEncoder());
 	}
 
 	// this configuration allow the client app to access the this api
@@ -60,7 +61,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
 				// starts authorizing configurations
 				.authorizeRequests()
 				// ignoring the guest's urls "
-				.antMatchers("/h2-console/**","/account/register", "/account/login", "/logout").permitAll()
+				.antMatchers("/h2-console/**", "/account/register", "/account/login", "/logout").permitAll()
 				// authenticate all remaining URLS
 				.anyRequest().fullyAuthenticated().and()
 				/*
@@ -71,15 +72,16 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
 				// enabling the basic authentication
 				.httpBasic().and()
 				// configuring the session on the server
-//				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and()
+				// .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and()
 				// disabling the CSRF - Cross Site Request Forgery
 				.csrf().disable();
 		http.headers().frameOptions().disable();
 	}
-	
-	 @Bean
-	 public static NoOpPasswordEncoder passwordEncoder() {
-	  return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
-	 }
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		PasswordEncoder encoder = new BCryptPasswordEncoder();
+		return encoder;
+	}
 
 }

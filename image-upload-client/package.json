@@ -24,6 +24,7 @@
     "@angular/router": "^6.0.0",
     "core-js": "^2.5.4",
     "ngx-facebook": "^2.4.0",
+    "bootstrap": "^3.3.7",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },
