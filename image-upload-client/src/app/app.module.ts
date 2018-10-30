@@ -1,32 +1,31 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MyNavComponent } from './my-nav/my-nav.component';
-import { LayoutModule } from '@angular/cdk/layout';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from "./services/auth.service";
+import { HttpModule } from "@angular/http";
+import { AccountService } from "./services/account.service";
+import { ProfileComponent } from './components/profile/profile.component';
+import { routing } from "./app.routing";
+import { FacebookModule } from "ngx-facebook";
+import { UrlPermission } from "./urlPermission/url.permission";
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, MatProgressBarModule } from '@angular/material';
-import { ImageUploadComponent } from './image-upload/image-upload.component';
+import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 import { HttpClientModule } from '@angular/common/http';
 
-const appRoutes: Routes = [
-  { path: 'image', component: ImageUploadComponent},
-  { path: '', component: ImageUploadComponent}
-];
 
 @NgModule({
   declarations: [
     AppComponent,
-    MyNavComponent,
+    LoginComponent,
+    RegisterComponent,
+    ProfileComponent,
     ImageUploadComponent
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    RouterModule.forRoot(appRoutes),
-    LayoutModule,
-    MatToolbarModule,
+    BrowserModule, HttpModule, FormsModule, routing, FacebookModule.forRoot(), MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
@@ -35,7 +34,7 @@ const appRoutes: Routes = [
     MatProgressBarModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService, AccountService, UrlPermission],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
