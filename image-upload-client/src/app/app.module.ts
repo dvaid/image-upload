@@ -10,11 +10,14 @@ import { AccountService } from "./services/account.service";
 import { ProfileComponent } from './components/profile/profile.component';
 import { routing } from "./app.routing";
 import { FacebookModule } from "ngx-facebook";
-import { UrlPermission } from "./urlPermission/url.permission";
+import { AuthGuard } from "./urlPermission/url.permission";
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, MatProgressBarModule } from '@angular/material';
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth-interceptor.service';
+import { TopNavComponent } from './components/top-nav/top-nav.component';
+import { HomeLayoutComponent } from './components/layouts/home-layout/home-layout.component';
+import { LoginLayoutComponent } from './components/layouts/login-layout/login-layout.component';
 
 
 @NgModule({
@@ -23,7 +26,10 @@ import { AuthInterceptor } from './services/auth-interceptor.service';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    ImageUploadComponent
+    ImageUploadComponent,
+    TopNavComponent,
+    HomeLayoutComponent,
+    LoginLayoutComponent
   ],
   imports: [
     BrowserModule, HttpModule, FormsModule, routing, FacebookModule.forRoot(), MatToolbarModule,
@@ -35,7 +41,7 @@ import { AuthInterceptor } from './services/auth-interceptor.service';
     MatProgressBarModule,
     HttpClientModule
   ],
-  providers: [AuthService, AccountService, UrlPermission, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  providers: [AuthService, AccountService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

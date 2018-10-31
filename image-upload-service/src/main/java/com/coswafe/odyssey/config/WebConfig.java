@@ -68,7 +68,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
 				 * "/logout" will log the user out by invalidating the HTTP Session, cleaning up
 				 * any {link rememberMe()} authentication that was configured,
 				 */
-				.logout().permitAll().logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST")).and()
+				.logout().logoutSuccessUrl("/account/login").permitAll().logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST")).and()
 				// enabling the basic authentication
 				.httpBasic().and()
 				// configuring the session on the server
