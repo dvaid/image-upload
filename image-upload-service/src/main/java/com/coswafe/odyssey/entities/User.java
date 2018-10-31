@@ -1,6 +1,5 @@
 package com.coswafe.odyssey.entities;
 
-
 /*******************************************************************************
  * 2017, this is the user entity class ,
  * this class implements users details of the spring security framework
@@ -19,55 +18,61 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 /**
  * Description of User.
  * 
  * @author kamal berriga
  */
 @Entity
-@Table(name="User")
+@Table(name = "User")
 @Scope("session")
-public  class User implements UserDetails{
+public class User implements UserDetails {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public static enum Role{ USER }
+	public static enum Role {
+		USER
+	}
+
 	/**
 	 * Description of the property id.
 	 */
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Long id ;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SEQ")
+	@SequenceGenerator(name = "USER_SEQ", allocationSize = 7, initialValue = 101, sequenceName = "USER_SEQ")
+	private Long id;
 	/**
 	 * Description of the property email.
 	 */
 	@Column(unique = true)
-	private String username ;
+	private String username;
 	/**
 	 * Description of the property password.
 	 */
 	@JsonProperty(access = Access.WRITE_ONLY)
-	private String password ;
+	private String password;
 	/**
 	 * Description of the property role , to grant authority to the user .
 	 */
-    private String  role;
-    /**
+	private String role;
+	/**
 	 * Description of the property full name.
 	 */
-    private String fullName;
+	private String fullName;
 
-    public User(){
-    	
-    }
-    
-    public User(String username,String password,String fullName){
-    	this.username=username;
-    	this.password= password;
-    	this.fullName=fullName;
-    }
+	public User() {
+
+	}
+
+	public User(String username, String password, String fullName) {
+		this.username = username;
+		this.password = password;
+		this.fullName = fullName;
+	}
+
 	@JsonIgnore
 	@Override
 	public boolean isEnabled() {
@@ -102,8 +107,7 @@ public  class User implements UserDetails{
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role +
-				 ",]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + ",]";
 	}
 
 	@Override
@@ -117,7 +121,6 @@ public  class User implements UserDetails{
 		// TODO Auto-generated method stub
 		return username;
 	}
-	
 
 	public String getRole() {
 		return role;
@@ -146,7 +149,5 @@ public  class User implements UserDetails{
 	public Long getId() {
 		return id;
 	}
-	
-	
-	
+
 }
