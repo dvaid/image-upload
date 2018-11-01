@@ -1,5 +1,6 @@
 package com.coswafe.odyssey.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class AccountController {
 	// request method to create a new account by a guest
 	@CrossOrigin
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<?> createUser(@RequestBody User newUser) {
+	public ResponseEntity<?> createUser(@RequestBody User newUser) throws IOException {
 		if (userService.find(newUser.getUsername()) != null) {
 			logger.error("username Already exist " + newUser.getUsername());
 			return new ResponseEntity<CustomErrorType>(

@@ -38,7 +38,6 @@ const appRoutes: Routes = [{
     path: 'upload',
     component: ImageUploadComponent   // {3}
   },
-  // { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   ]
 },

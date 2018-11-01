@@ -1,5 +1,6 @@
 package com.coswafe.odyssey.service;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,12 @@ public class UserService {
 	private UserRepository userRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private FileStorageService fileStorage;
 
-	public User save(User user) {
+	public User save(User user) throws IOException {
+		fileStorage.createUserDirectory(user.getUsername());
 		return userRepository.saveAndFlush(encodeUserPassword(user));
 	}
 

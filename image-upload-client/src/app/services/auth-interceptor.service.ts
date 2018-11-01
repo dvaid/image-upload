@@ -1,4 +1,4 @@
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -13,8 +13,12 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const basicAuthToken = localStorage.Authorization;
     if (basicAuthToken) {
-      req.headers.append('Accept', 'application/json');
-      req.headers.append('Authorization', basicAuthToken);
+      req = req.clone({
+        setHeaders: {
+          'Accept': 'application/json',
+          'Authorization': basicAuthToken
+        }
+      });
     }
     return next.handle(req);
   }

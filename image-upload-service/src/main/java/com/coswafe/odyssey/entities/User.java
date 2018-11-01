@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Entity
 @Table(name = "User")
 @Scope("session")
-public class User implements UserDetails {
+public class User extends AuditableEntity implements UserDetails {
 	/**
 	 * 
 	 */
@@ -41,8 +41,8 @@ public class User implements UserDetails {
 	 * Description of the property id.
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_SEQ")
-	@SequenceGenerator(name = "USER_SEQ", allocationSize = 7, initialValue = 101, sequenceName = "USER_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ODYSSEY_SEQ")
+	@SequenceGenerator(name = "ODYSSEY_SEQ", allocationSize = 7, initialValue = 101, sequenceName = "ODYSSEY_SEQ")
 	private Long id;
 	/**
 	 * Description of the property email.
@@ -107,7 +107,7 @@ public class User implements UserDetails {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + ",]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + "]";
 	}
 
 	@Override

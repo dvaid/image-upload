@@ -6,7 +6,7 @@ import { AppComponent } from "../app.component";
 
 @Injectable()
 export class AuthService {
-  constructor(public http: Http) { }
+  constructor(private http: Http) { }
 
   public logIn(user: User) {
 

@@ -41,7 +41,9 @@ import { LoginLayoutComponent } from './components/layouts/login-layout/login-la
     MatProgressBarModule,
     HttpClientModule
   ],
-  providers: [AuthService, AccountService, AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  providers: [AuthService, AccountService, AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

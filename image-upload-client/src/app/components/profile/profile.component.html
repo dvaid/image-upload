@@ -6,6 +6,13 @@
     <p class="lead"> welcome to your profile
     </p>
     <div class="row">
+      <ul>
+        <li *ngFor="let submission of submissions | async; index as i; odd as odd; even as even;" [ngClass]="{ odd: odd, even: even }">
+          <span>
+            <a (href)="submission"> {{i}} </a>
+          </span>
+        </li>
+      </ul>
     </div>
   </header>
 </div>
