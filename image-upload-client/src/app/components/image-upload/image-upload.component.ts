@@ -1,5 +1,6 @@
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 @Component({
   selector: 'image-upload',
   templateUrl: './image-upload.component.html',
@@ -11,7 +12,8 @@ export class ImageUploadComponent implements OnInit {
   progressValue: Number;
   private selectedFile: File;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private router:Router) { }
 
   ngOnInit() {
     this.progressValue = 0;
@@ -39,6 +41,10 @@ export class ImageUploadComponent implements OnInit {
       if (event.type === HttpEventType.UploadProgress) {
         console.log(event.total, event.loaded);
         this.progressValue = (event.loaded / event.total) * 100;
+
+        if(this.progressValue ==100){
+          this.router.navigate(['register']);
+        }
       }
       console.log(event);
     });

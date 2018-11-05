@@ -1,0 +1,74 @@
+<div class="header affix">
+    <div class="table">
+      <div class="table-cell">
+        <!-- Logo -->
+        <div class="logo">
+          <img src="../../../assets/images/logo2.png"  alt="Odyssey Coswafe Logo"/>
+        </div>
+        <!-- End Logo -->
+
+        <!-- Navigation -->
+        <div class="main-menu">
+          <nav>
+            <ul class="menu-list">
+              <li>
+                <a routerLink="/home" routerLinkActive="active">Home</a>
+              </li>
+              <li *ngIf="isLoggedIn">
+                    <a routerLink="/my-submissions" routerLinkActive="active">My Submissions</a>
+                </li>
+                <li *ngIf="isLoggedIn">
+                    <a style="color: blue;cursor: pointer;text-decoration: underline" (click)="logOut()">Logout</a>
+                </li>
+              
+                  <li *ngIf="!isLoggedIn">
+                    <a routerLink="/about-us" routerLinkActive="active">About</a>
+                  </li>
+                  <li *ngIf="!isLoggedIn">
+                    <a routerLink="/jury" routerLinkActive="active">Jury</a>
+                  </li>
+                  <li *ngIf="!isLoggedIn">
+                    <a routerLink="/parteners" routerLinkActive="active">Partners</a>
+                  </li>
+                  <li *ngIf="!isLoggedIn">
+                    <a routerLink="/how-to-enter" routerLinkActive="active">How to Enter</a>
+                  </li>
+                  <li *ngIf="!isLoggedIn">
+                    <a routerLink="/prize-fee" routerLinkActive="active">Prizes & Fees</a>
+                  </li>
+                  <li *ngIf="!isLoggedIn">
+                    <a routerLink="/gallery" routerLinkActive="active">Gallery</a>
+                  </li>
+              
+            </ul>
+          </nav>
+        </div>
+        <!-- End Navigation -->
+
+        <br>
+        <a *ngIf="!isLoggedIn" class="btn btn-warning" routerLink="upload">Enter Competition</a>
+
+        <!-- Socials -->
+        <div class="socials">
+          
+          <a href="https://facebook.com/coswafe" title="Facebook" target="_blank">
+            <i class="fa fa-facebook"></i>
+          </a>
+          
+          <a href="https://instagram.com/coswafe" title="Instagram" target="_blank">
+            <i class="fa fa-instagram"></i>
+          </a>
+          
+        </div>
+        
+        <!-- End Socials -->
+
+        <div class="copyright">
+          <p>
+            Odyssey @ 2018. Powered by <a href="https://coswafe.com" target="_blank">Coswafe</a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
