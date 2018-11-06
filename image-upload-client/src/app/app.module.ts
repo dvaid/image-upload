@@ -12,6 +12,7 @@ import { routing } from "./app.routing";
 import { FacebookModule } from "ngx-facebook";
 import { AuthGuard } from "./urlPermission/url.permission";
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, MatProgressBarModule } from '@angular/material';
+<<<<<<< Updated upstream
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth-interceptor.service';
@@ -30,10 +31,24 @@ import { FooterComponent } from './components/footer/footer.component';
 import { GalleryItemComponent } from './components/gallery/gallery-item/gallery-item.component';
 import { MySubmissionsComponent } from './components/my-submissions/my-submissions.component';
 
+=======
+import { ImageUploadComponent } from './image-upload/image-upload.component';
+import { HttpClientModule } from '@angular/common/http';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+const appRoutes: Routes = [
+  { path: 'image', component: ImageUploadComponent},
+  { path: '', component: ImageUploadComponent},
+  { path: 'user-details', component: UserDetailComponent}
+
+];
+>>>>>>> Stashed changes
 
 @NgModule({
   declarations: [
     AppComponent,
+<<<<<<< Updated upstream
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
@@ -52,6 +67,11 @@ import { MySubmissionsComponent } from './components/my-submissions/my-submissio
     FooterComponent,
     GalleryItemComponent,
     MySubmissionsComponent
+=======
+    MyNavComponent,
+    ImageUploadComponent,
+    UserDetailComponent
+>>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule, HttpModule, FormsModule, routing, FacebookModule.forRoot(), MatToolbarModule,
@@ -60,6 +80,8 @@ import { MySubmissionsComponent } from './components/my-submissions/my-submissio
     MatIconModule,
     MatListModule,
     MatCardModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatProgressBarModule,
     HttpClientModule
   ],

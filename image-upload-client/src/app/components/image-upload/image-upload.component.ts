@@ -8,9 +8,9 @@ import { Router } from '@angular/router';
 })
 export class ImageUploadComponent implements OnInit {
 
-  url = '';
+  url:string = '';
   progressValue: Number;
-  private selectedFile: File;
+  public selectedFile: File;
 
   constructor(private http: HttpClient,
     private router:Router) { }
@@ -24,7 +24,6 @@ export class ImageUploadComponent implements OnInit {
       const reader = new FileReader();
       this.selectedFile = event.target.files[0];
       reader.readAsDataURL(this.selectedFile); // read file as data url
-
       reader.onload = (uploadProgressEvent) => { // called once readAsDataURL is completed
         this.url = reader.result;
       };
@@ -43,10 +42,10 @@ export class ImageUploadComponent implements OnInit {
         this.progressValue = (event.loaded / event.total) * 100;
 
         if(this.progressValue ==100){
-          this.router.navigate(['register']);
+           this.router.navigate(['register']);
         }
+        console.log(event);
       }
-      console.log(event);
     });
   }
 }
