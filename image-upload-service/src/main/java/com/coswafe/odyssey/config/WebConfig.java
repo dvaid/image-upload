@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -41,8 +42,11 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**").allowedOrigins("http://localhost:4200");
-
+		registry.addMapping("/**").allowedOrigins("http://localhost:4200").allowedMethods("POST, GET, HEAD, OPTIONS")
+				.allowCredentials(true)
+				.allowedHeaders(
+						"Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers")
+				.exposedHeaders("Access-Control-Allow-Origin,Access-Control-Allow-Credentials").maxAge(10);
 	}
 
 	// This method is for overriding some configuration of the WebSecurity
@@ -68,11 +72,12 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
 				 * "/logout" will log the user out by invalidating the HTTP Session, cleaning up
 				 * any {link rememberMe()} authentication that was configured,
 				 */
-				.logout().logoutSuccessUrl("/account/login").permitAll().logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST")).and()
+				.logout().logoutSuccessUrl("/account/login").permitAll()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST")).and()
 				// enabling the basic authentication
 				.httpBasic().and()
 				// configuring the session on the server
-				// .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and()
+				 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and()
 				// disabling the CSRF - Cross Site Request Forgery
 				.csrf().disable();
 		http.headers().frameOptions().disable();

@@ -24,6 +24,10 @@ import lombok.Setter;
 @Setter
 public class Submission extends AuditableEntity {
 
+	public Submission() {
+
+	}
+
 	public Submission(String author, String downloadUrl, String fileType, long fileSize) {
 		super();
 		this.author = author;
@@ -56,4 +60,24 @@ public class Submission extends AuditableEntity {
 
 	@Column
 	private long fileSize;
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public String getDownloadUrl() {
+		return downloadUrl;
+	}
+
+	public String getFileType() {
+		return fileType;
+	}
+
+	public long getFileSize() {
+		return fileSize;
+	}
 }

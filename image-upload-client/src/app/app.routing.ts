@@ -9,7 +9,7 @@ import { LoginLayoutComponent } from './components/layouts/login-layout/login-la
 
 
 const appRoutes: Routes = [{
-  path: '',                       // {1}
+  path: 'home',                       // {1}
   component: HomeLayoutComponent,
   children: [{
     path: '',
