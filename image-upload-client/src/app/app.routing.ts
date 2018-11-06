@@ -38,7 +38,7 @@ export const routing = RouterModule.forRoot(appRoutes);
 
 
 // {
-  
+
 //   path: '',                       // {1}
 //   component: HomeLayoutComponent,
 //   children: [{

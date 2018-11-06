@@ -78,7 +78,13 @@ public class FileController {
 	public ResponseEntity<List<Submission>> downloadSubmissions(@PathVariable String username,
 			HttpServletRequest request) {
 		final List<Submission> submissions = fileStorageService.getSubmissions(username);
-		return new ResponseEntity<List<Submission>>(submissions, HttpStatus.OK);
+		final ResponseEntity<List<Submission>> responseEntity = new ResponseEntity<List<Submission>>(submissions,
+				HttpStatus.OK);
+		List<Submission> body = responseEntity.getBody();
+		for (Submission submission : body) {
+			System.out.println(submission);
+		}
+		return responseEntity;
 
 	}
 

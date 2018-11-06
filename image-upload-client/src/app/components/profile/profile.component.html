@@ -7,9 +7,9 @@
     </p>
     <div class="row">
       <ul>
-        <li *ngFor="let submission of submissions | async; index as i; odd as odd; even as even;" [ngClass]="{ odd: odd, even: even }">
+        <li *ngFor="let submission of submissions; let index=index; let odd=odd; let even=even;" [ngClass]="{ odd: odd, even: even }">
           <span>
-            <a (href)="submission"> {{i}} </a>
+            <a (href)="submission"> {{submission.downloadUrl}} </a>
           </span>
         </li>
       </ul>
