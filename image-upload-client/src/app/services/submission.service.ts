@@ -18,9 +18,9 @@ export class SubmissionService {
     return this.http.get(AppComponent.API_URL + "/" + user.username + "/submissions", {}).pipe(
       map((response: Response) => {
         const submissions: Submission[] = [];
-        // response.map(submission => {
-        //   submissions.push(submission);
-        // });
+        response.json().map(submission => {
+          submissions.push(submission);
+        });
         return submissions;
       }));
   }
