@@ -1,5 +1,5 @@
 import { HttpClient, HttpEventType } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
   selector: 'image-upload',
@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class ImageUploadComponent implements OnInit {
 
+  private isLoggedIn: boolean;
   url: string = '';
   progressValue: Number;
   public selectedFile: File;
@@ -17,6 +18,10 @@ export class ImageUploadComponent implements OnInit {
 
   ngOnInit() {
     this.progressValue = 0;
+    if (localStorage.getItem('currentUser')) {
+      this.isLoggedIn = localStorage.getItem('currentUser').length > 0;
+      console.log(localStorage.getItem('currentUser'));
+    }
   }
   onSelectFile(event) {
     this.progressValue = 0;
@@ -42,7 +47,11 @@ export class ImageUploadComponent implements OnInit {
         this.progressValue = (event.loaded / event.total) * 100;
 
         if (this.progressValue == 100) {
-          this.router.navigate(['register']);
+          if (!this.isLoggedIn) {
+            this.router.navigate(['register']);
+          } else {
+            this.router.navigate(['my-submissions']);
+          }
         }
         console.log(event);
       }

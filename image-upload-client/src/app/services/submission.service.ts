@@ -17,10 +17,8 @@ export class SubmissionService {
   getSubmissions(user: User): Observable<Submission[]> {
     return this.http.get(AppComponent.API_URL + "/" + user.username + "/submissions", {}).pipe(
       map((response: Response) => {
-        const submissions: Submission[] = [];
-        response.json().map(submission => {
-          submissions.push(submission);
-        });
+        let submissions;
+        submissions = response;
         return submissions;
       }));
   }

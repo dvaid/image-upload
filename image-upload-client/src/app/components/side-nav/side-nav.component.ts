@@ -9,15 +9,15 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SideNavComponent implements OnInit {
 
-  private isLoggedIn:boolean=false;
+  private isLoggedIn: boolean = false;
 
   constructor(public authService: AuthService,
-              public router: Router) { }
+    public router: Router) { }
 
   ngOnInit() {
-    if(localStorage.getItem('currentUser')){
-      this.isLoggedIn = localStorage.getItem('currentUser').length>0;
-      console.log( localStorage.getItem('currentUser'));
+    if (localStorage.getItem('currentUser')) {
+      this.isLoggedIn = localStorage.getItem('currentUser').length > 0;
+      console.log(localStorage.getItem('currentUser'));
     }
   }
 

@@ -5,9 +5,10 @@
             <h2 class="title">Upload a photo for the contest
                 <small> (max 5mb)</small>
             </h2>
-            or
-            <a routerLink="/login" class="text-primary">Login Here</a> to view submissions
-
+            <span *ngIf="!isLoggedIn">
+                or
+                <a routerLink="/login" class="text-primary">Login Here</a> to view submissions
+            </span>
             <!-- The Content -->
             <div class="the-content">
 
@@ -20,8 +21,11 @@
                         <textarea placeholder="A brief about your photo" name="story"></textarea>
                     </div>
                     <div class="contact-item form-submit">
-                        <input name="button" type="button" id="submit" class="submit" value="Upload" (click)="uploadFile()"> or
-                        <a routerLink="/login" class="text-primary">Login Here</a>
+                        <input name="button" type="button" id="submit" class="submit" value="Upload" (click)="uploadFile()">
+                        <span *ngIf="!isLoggedIn">
+                            or
+                            <a routerLink="/login" class="text-primary">Login Here</a>
+                        </span>
                     </div>
                 </form>
             </div>
