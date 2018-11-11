@@ -1,30 +1,34 @@
-					<div class="projects">
+<div class="projects">
 
-						<article class="post">
-							<div class="post-content">
-								<h2 class="title">Upload a photo for the contest<small> (max 5mb)</small></h2>
-								or <a href="/login" class="text-primary">Login Here</a> to view submissions
+    <article class="post">
+        <div class="post-content">
+            <h2 class="title">Upload a photo for the contest
+                <small> (max 5mb)</small>
+            </h2>
+            or
+            <a routerLink="/login" class="text-primary">Login Here</a> to view submissions
 
-								<!-- The Content -->
-								<div class="the-content">
+            <!-- The Content -->
+            <div class="the-content">
 
-                                        <mat-progress-bar mode="determinate" color="accent" [value]="progressValue"></mat-progress-bar>
-									<form id="singleUploadForm" name="singleUploadForm">
-										<div class="contact-item form-file">
-											<input type='file' (change)="onSelectFile($event)">
-										</div>
-										<div class="contact-item field-full form-message">
-											<textarea placeholder="A brief about your photo" name="story"></textarea>
-										</div>
-										<div class="contact-item form-submit">
-											<input name="button" type="button" id="submit" class="submit" value="Upload" (click)="uploadFile()">  or <a href="/login" class="text-primary">Login Here</a> 
-										</div>
-									</form>
-								</div>
-							</div>
-					</article>
-					</div>
-				
+                <mat-progress-bar mode="determinate" color="accent" [value]="progressValue"></mat-progress-bar>
+                <form id="singleUploadForm" name="singleUploadForm">
+                    <div class="contact-item form-file">
+                        <input type='file' (change)="onSelectFile($event)">
+                    </div>
+                    <div class="contact-item field-full form-message">
+                        <textarea placeholder="A brief about your photo" name="story"></textarea>
+                    </div>
+                    <div class="contact-item form-submit">
+                        <input name="button" type="button" id="submit" class="submit" value="Upload" (click)="uploadFile()"> or
+                        <a routerLink="/login" class="text-primary">Login Here</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </article>
+</div>
+
 
 <!-- 
 <div class="upload-container">

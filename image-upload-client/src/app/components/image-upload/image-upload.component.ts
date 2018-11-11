@@ -8,12 +8,12 @@ import { Router } from '@angular/router';
 })
 export class ImageUploadComponent implements OnInit {
 
-  url:string = '';
+  url: string = '';
   progressValue: Number;
   public selectedFile: File;
 
   constructor(private http: HttpClient,
-    private router:Router) { }
+    private router: Router) { }
 
   ngOnInit() {
     this.progressValue = 0;
@@ -41,8 +41,8 @@ export class ImageUploadComponent implements OnInit {
         console.log(event.total, event.loaded);
         this.progressValue = (event.loaded / event.total) * 100;
 
-        if(this.progressValue ==100){
-           this.router.navigate(['register']);
+        if (this.progressValue == 100) {
+          this.router.navigate(['register']);
         }
         console.log(event);
       }

@@ -13,18 +13,18 @@ import { GalleryComponent } from './components/gallery/gallery.component';
 import { MySubmissionsComponent } from './components/my-submissions/my-submissions.component';
 
 const appRoutes: Routes = [
-  { path: '',pathMatch:'full', redirectTo:'/home'},
-  {path:'home',component:HomeComponent},
-  {path:'about-us',component:AboutUsComponent},
-  {path:'jury',component:JuryComponent},
-  {path:'parteners',component:PartenersComponent},
-  {path:'how-to-enter',component:HowToEnterComponent},
-  {path:'prize-fee',component:PrizeFeeComponent},
-  {path:'gallery',component:GalleryComponent},
-  {path: 'upload',component: ImageUploadComponent },
-  {path: 'my-submissions',component: MySubmissionsComponent,canActivate:[AuthGuard]},
-  {path: 'login',component: LoginComponent},
-  {path: 'register',component: RegisterComponent},
+  { path: '', pathMatch: 'full', redirectTo: '/home' },
+  { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'about-us', component: AboutUsComponent },
+  { path: 'jury', component: JuryComponent },
+  { path: 'partners', component: PartenersComponent },
+  { path: 'how-to-enter', component: HowToEnterComponent },
+  { path: 'prize-fee', component: PrizeFeeComponent },
+  { path: 'gallery', component: GalleryComponent },
+  { path: 'upload', component: ImageUploadComponent },
+  { path: 'my-submissions', component: MySubmissionsComponent, canActivate: [AuthGuard] },
+  { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: '/login' }
 ];
 
