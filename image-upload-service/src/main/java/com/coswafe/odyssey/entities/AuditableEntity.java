@@ -40,4 +40,37 @@ public class AuditableEntity {
 	@Type(type = "org.hibernate.type.LocalDateTimeType")
 	@JsonIgnore
 	private LocalDateTime updatedAt;
+
+	public Integer getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(Integer createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Integer getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(Integer updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
 }
