@@ -8,10 +8,8 @@ import org.springframework.context.annotation.ComponentScan;
 import com.coswafe.odyssey.property.FileStorageProperties;
 
 @SpringBootApplication
-@ComponentScan(basePackages= {"com.coswafe.odyssey"})
-@EnableConfigurationProperties({
-		FileStorageProperties.class
-})
+@ComponentScan(basePackages = { "com.coswafe.odyssey" })
+@EnableConfigurationProperties({ FileStorageProperties.class })
 public class FileUploadApplication {
 
 	public static void main(String[] args) {

@@ -11,7 +11,7 @@ import { User } from '../../model/model.user';
 })
 export class ImageUploadComponent implements OnInit {
 
-  private isLoggedIn: boolean;
+  public isLoggedIn: boolean;
   url: string = '';
   progressValue: Number;
   public selectedFile: File;

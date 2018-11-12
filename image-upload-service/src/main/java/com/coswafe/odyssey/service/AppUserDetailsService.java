@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.coswafe.odyssey.entities.User;
 
-
 /**
  * This Service class for providing the user credentials from the database.
  * 
@@ -24,7 +23,7 @@ public class AppUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userService.find(username);
-		return  user;
+		return user;
 	}
 
 }

@@ -21,7 +21,7 @@ public class UserService {
 	private UserRepository userRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private FileStorageService fileStorage;
 

@@ -88,10 +88,10 @@ public class FileStorageService {
 		return submissionRepo.findByAuthor(author);
 	}
 
-	public Resource loadFileAsResource(String fileName) {
+	public Resource loadFileAsResource(String fileName, String username) {
 		try {
-			Path filePath = this.fileStorageLocation.resolve(getUserName() + File.separator + fileName).normalize();
-			Resource resource = new UrlResource(filePath.toUri());
+			final Path filePath = this.fileStorageLocation.resolve(username + File.separator + fileName).normalize();
+			final Resource resource = new UrlResource(filePath.toUri());
 			if (resource.exists()) {
 				return resource;
 			} else {

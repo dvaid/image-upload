@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.coswafe.odyssey.entities.User;
 import com.coswafe.odyssey.service.UserService;
 import com.coswafe.odyssey.util.CustomErrorType;
-/** 
+
+/**
  * @author kamal berriga
  *
  */
@@ -41,7 +42,7 @@ public class AccountController {
 					HttpStatus.CONFLICT);
 		}
 		newUser.setRole("USER");
-		
+
 		return new ResponseEntity<User>(userService.save(newUser), HttpStatus.CREATED);
 	}
 
@@ -49,10 +50,8 @@ public class AccountController {
 	@CrossOrigin
 	@RequestMapping("/login")
 	public Principal user(Principal principal) {
-		logger.info("user logged "+principal);
+		logger.info("user logged " + principal);
 		return principal;
 	}
 
-	
-	
 }

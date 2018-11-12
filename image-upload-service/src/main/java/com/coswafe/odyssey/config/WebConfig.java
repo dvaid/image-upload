@@ -65,7 +65,9 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
 				// starts authorizing configurations
 				.authorizeRequests()
 				// ignoring the guest's urls "
-				.antMatchers("/h2-console/**", "/account/register", "/account/login", "/logout","/uploadFile", "/downloadFile/**").permitAll()
+				.antMatchers("/h2-console/**", "/account/register", "/account/login", "/logout", "/uploadFile",
+						"/downloadFile/**")
+				.permitAll()
 				// authenticate all remaining URLS
 				.anyRequest().fullyAuthenticated().and()
 				/*
@@ -77,7 +79,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
 				// enabling the basic authentication
 				.httpBasic().and()
 				// configuring the session on the server
-				 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).and()
 				// disabling the CSRF - Cross Site Request Forgery
 				.csrf().disable();
 		http.headers().frameOptions().disable();

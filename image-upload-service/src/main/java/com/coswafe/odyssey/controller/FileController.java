@@ -51,10 +51,11 @@ public class FileController {
 		return Arrays.asList(files).stream().map(file -> uploadFile(file)).collect(Collectors.toList());
 	}
 
-	@GetMapping("/downloadFile/{fileName:.+}")
-	public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+	@GetMapping("{username}/downloadFile/{fileName:.+}")
+	public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, @PathVariable String username,
+			HttpServletRequest request) {
 		// Load file as Resource
-		Resource resource = fileStorageService.loadFileAsResource(fileName);
+		Resource resource = fileStorageService.loadFileAsResource(fileName, username);
 
 		// Try to determine file's content type
 		String contentType = null;
