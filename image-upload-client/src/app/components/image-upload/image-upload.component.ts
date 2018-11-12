@@ -43,10 +43,10 @@ export class ImageUploadComponent implements OnInit {
   uploadFile() {
     const uploadData = new FormData();
     uploadData.append('file', this.selectedFile, this.selectedFile.name);
+    this.imageUploadService.savePendingUpload(uploadData);
     if (this.isLoggedIn) {
       this.doUpload(this.loggedInUser);
     } else {
-      this.imageUploadService.savePendingUpload(uploadData);
       this.router.navigate(['register']);
       // subscribe to user registered behavior subject
       this.accountService.userRegisteredSubject.subscribe(registeredUser => this.doUpload(registeredUser));
