@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../model/model.user';
 import { Submission } from '../../model/submission';
 import { SubmissionService } from '../../services/submission.service';
+import { AppComponent } from '../../app.component';
 
 @Component({
   selector: 'app-my-submissions',
@@ -10,6 +11,7 @@ import { SubmissionService } from '../../services/submission.service';
 })
 export class MySubmissionsComponent implements OnInit {
 
+  APIUrl = AppComponent.API_URL;
   currentUser: User;
   submissions: Submission[] = [];
 

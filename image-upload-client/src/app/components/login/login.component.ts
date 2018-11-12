@@ -22,10 +22,9 @@ export class LoginComponent implements OnInit {
     this.authService.logIn(this.user)
       .subscribe(data => {
         this.router.navigate(['/my-submissions']);
-        window.location.reload;
+        // window.location.reload;
       }, err => {
         this.errorMessage = "error :  Username or password is incorrect";
-      }
-      )
+      });
   }
 }

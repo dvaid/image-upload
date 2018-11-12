@@ -49,8 +49,8 @@
 			<!-- iterate over submissions -->
 			<div *ngFor="let submission of submissions; let index=index;">
 				<div class="images-project"></div>
-				<a href="submission.downloadUrl" class="popup">
-					<img src="submission.downloadUrl" alt="">
+				<a [href]="APIUrl+submission.downloadUrl" class="popup">
+					<img [src]="APIUrl+submission.downloadUrl" alt="">
 				</a>
 				<div class="post-content">
 					<p>{{submission.brief}}</p>
