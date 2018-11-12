@@ -17,7 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.coswafe.odyssey.entities.Submission;
 import com.coswafe.odyssey.exception.FileStorageException;
@@ -64,8 +64,7 @@ public class FileStorageService {
 		final String userName = getUserName();
 		// Normalize file name
 		final String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		final String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
-				.path(userName + File.separator).path(fileName).toUriString();
+		final String fileDownloadUri = UriComponentsBuilder.fromPath("/downloadFile/").path(fileName).toUriString();
 
 		try {
 			// Check if the file's name contains invalid characters
@@ -91,7 +90,7 @@ public class FileStorageService {
 
 	public Resource loadFileAsResource(String fileName) {
 		try {
-			Path filePath = this.fileStorageLocation.resolve(fileName + File.separator + getUserName()).normalize();
+			Path filePath = this.fileStorageLocation.resolve(getUserName() + File.separator + fileName).normalize();
 			Resource resource = new UrlResource(filePath.toUri());
 			if (resource.exists()) {
 				return resource;
