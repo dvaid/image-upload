@@ -1,0 +1,43 @@
+<div id="main-content">
+  <div class="projects">
+
+    <article class="post">
+      <div class="post-content">
+        <h2 class="title">Payment Failure.</h2>
+        <div class="the-content">
+          <p class="mat-h3">OOPs your payment has failed due to some reason. Please retry it unless your entry will not be considered</p>
+          <p>&nbsp;&nbsp;</p>
+          <form ngNoForm action="{{paymentUrl}}" method="POST" >
+            <input type="hidden" name="me_id" value="{{paymentData.me_id}}">
+            <input type="hidden" name="txn_details" value="{{paymentData.txn_details}}">
+            <input type="hidden" name="pg_details" value="{{paymentData.pg_details}}">
+            <input type="hidden" name="card_details" value="{{paymentData.card_details}}">
+            <input type="hidden" name="cust_details" value="{{paymentData.cust_details}}">
+            <input type="hidden" name="bill_details" value="{{paymentData.bill_details}}">
+            <input type="hidden" name="ship_details" value="{{paymentData.ship_details}}">
+            <input type="hidden" name="item_details" value="{{paymentData.item_details}}">
+            <input type="hidden" name="other_details" value="{{paymentData.other_details}}">
+            <div>
+              <table>
+                <tbody>
+                <tr>
+                  <td>
+                    <div class="col-md-offset-7 col-md-5">
+                      <img src="../../../assets/images/safex_logo.png">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <div class="contact-item form-submit">
+                    <button type="submit" name="submit" class="submit">Proceed to payment</button>
+                  </div>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>

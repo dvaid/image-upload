@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'spring boot and angular 4 secure authentication';
-  static API_URL="http://localhost:8080";
+  
+  static API_URL="http://localhost:9001";
+  static PAYMENT_URL = "https://test.avantgardepayments.com/agcore/payment";
+  
 }

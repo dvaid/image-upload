@@ -9,7 +9,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
+import com.coswafe.odyssey.util.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,40 +27,45 @@ import com.coswafe.odyssey.exception.MyFileNotFoundException;
 import com.coswafe.odyssey.property.FileStorageProperties;
 import com.coswafe.odyssey.repository.SubmissionRepository;
 
+import static java.lang.String.format;
+
 @Service
 public class FileStorageService {
 
-	private final Path fileStorageLocation;
+    private final Path fileStorageLocation;
 
-	@Autowired
-	private SubmissionRepository submissionRepo;
+    @Autowired
+    private SubmissionRepository submissionRepo;
 
-	@Autowired
-	public FileStorageService(FileStorageProperties fileStorageProperties) {
-		this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir()).toAbsolutePath().normalize();
-		try {
-			Files.createDirectories(this.fileStorageLocation);
-		} catch (Exception ex) {
-			throw new FileStorageException("Could not create the directory where the uploaded files will be stored.",
-					ex);
-		}
-	}
+    @Autowired
+    private S3Service s3Service;
 
-	private String getUserName() {
-		String username = "";
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if (principal instanceof UserDetails) {
-			username = ((UserDetails) principal).getUsername();
-		} else {
-			username = principal.toString();
-		}
-		return username;
-	}
+    @Autowired
+    public FileStorageService(FileStorageProperties fileStorageProperties) {
+        this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir()).toAbsolutePath().normalize();
+        try {
+            Files.createDirectories(this.fileStorageLocation);
+        } catch (Exception ex) {
+            throw new FileStorageException("Could not create the directory where the uploaded files will be stored.",
+                    ex);
+        }
+    }
 
-	public String createUserDirectory(String username) throws IOException {
-		final Path userDirectory = Files.createDirectories(this.fileStorageLocation.resolve(username));
-		return userDirectory.toAbsolutePath().toString();
-	}
+    private String getUserName() {
+        String username = "";
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        return username;
+    }
+
+    public String createUserDirectory(String username) throws IOException {
+        final Path userDirectory = Files.createDirectories(this.fileStorageLocation.resolve(username));
+        return userDirectory.toAbsolutePath().toString();
+    }
 
 	public String storeFile(MultipartFile file, Submission submission) {
 		final String userName = getUserName();
@@ -66,11 +73,12 @@ public class FileStorageService {
 		final String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		final String fileDownloadUri = UriComponentsBuilder.fromPath("/downloadFile/").path(fileName).toUriString();
 
-		try {
-			// Check if the file's name contains invalid characters
-			if (fileName.contains("..")) {
-				throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
-			}
+        try {
+            String s3BucketFileName = FileUtils.getFileName(file,userName);
+            // Check if the file's name contains invalid characters
+            if (fileName.contains("..")) {
+                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
+            }
 
 			// Copy file to the target location (Replacing existing file with the same name)
 			Path targetLocation = this.fileStorageLocation.resolve(userName + File.separator + fileName);
@@ -81,6 +89,8 @@ public class FileStorageService {
 			submission.setFileSize(file.getSize());
 			submission.setFileType(file.getContentType());
 			submission.setDownloadUrl(fileDownloadUri);
+            final String imagePathWithName = format("%s/%s/%s", "uploads",userName, s3BucketFileName);
+            s3Service.putFile(imagePathWithName, file.getInputStream());
 			submissionRepo.save(submission);
 			return fileName;
 		} catch (IOException ex) {
@@ -88,21 +98,21 @@ public class FileStorageService {
 		}
 	}
 
-	public List<Submission> getSubmissions(String author) {
-		return submissionRepo.findByAuthor(author);
-	}
+    public List<Submission> getSubmissions(String author) {
+        return submissionRepo.findByAuthor(author);
+    }
 
-	public Resource loadFileAsResource(String fileName, String username) {
-		try {
-			final Path filePath = this.fileStorageLocation.resolve(username + File.separator + fileName).normalize();
-			final Resource resource = new UrlResource(filePath.toUri());
-			if (resource.exists()) {
-				return resource;
-			} else {
-				throw new MyFileNotFoundException("File not found " + fileName);
-			}
-		} catch (MalformedURLException ex) {
-			throw new MyFileNotFoundException("File not found " + fileName, ex);
-		}
-	}
+    public Resource loadFileAsResource(String fileName, String username) {
+        try {
+            final Path filePath = this.fileStorageLocation.resolve(username + File.separator + fileName).normalize();
+            final Resource resource = new UrlResource(filePath.toUri());
+            if (resource.exists()) {
+                return resource;
+            } else {
+                throw new MyFileNotFoundException("File not found " + fileName);
+            }
+        } catch (MalformedURLException ex) {
+            throw new MyFileNotFoundException("File not found " + fileName, ex);
+        }
+    }
 }
