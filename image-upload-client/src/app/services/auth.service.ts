@@ -31,6 +31,18 @@ export class AuthService {
       }));
   }
 
+  user(): User {
+    let user: User = JSON.parse(localStorage.getItem('currentUser'));
+    return user;
+  }
+
+  IsUserLoggedin(): Boolean {
+    if (this.user()) {
+      return true;
+    }
+    return false;
+  }
+
   logOut() {
     // remove user from local storage to log user out
     return this.http.post(AppComponent.API_URL + "/logout", {}).pipe(

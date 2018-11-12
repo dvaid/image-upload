@@ -9,16 +9,14 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SideNavComponent implements OnInit {
 
-  public isLoggedIn: boolean = false;
-
   constructor(public authService: AuthService,
     public router: Router) { }
 
   ngOnInit() {
-    if (localStorage.getItem('currentUser')) {
+   /*  if (localStorage.getItem('currentUser')) {
       this.isLoggedIn = localStorage.getItem('currentUser').length > 0;
       console.log(localStorage.getItem('currentUser'));
-    }
+    } */
   }
 
   logOut() {
@@ -27,11 +25,9 @@ export class SideNavComponent implements OnInit {
       .subscribe(
         data => {
           localStorage.clear;
-          window.location.reload();
           this.router.navigate(['/home']);
         },
         error => {
-
         });
   }
 

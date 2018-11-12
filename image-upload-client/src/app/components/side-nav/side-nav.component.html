@@ -14,39 +14,38 @@
             <li>
               <a routerLink="/home" routerLinkActive="active">Home</a>
             </li>
-            <li *ngIf="isLoggedIn">
+            <li *ngIf="authService.IsUserLoggedin()">
               <a routerLink="/my-submissions" routerLinkActive="active">My Submissions</a>
             </li>
-            <li *ngIf="isLoggedIn">
+            <li *ngIf="authService.IsUserLoggedin()">
               <a style="color: blue;cursor: pointer;text-decoration: underline" (click)="logOut()">Logout</a>
             </li>
 
-            <li *ngIf="!isLoggedIn">
+            <li *ngIf="!authService.IsUserLoggedin()">
               <a routerLink="/about-us" routerLinkActive="active">About</a>
             </li>
-            <li *ngIf="!isLoggedIn">
+            <li *ngIf="!authService.IsUserLoggedin()">
               <a routerLink="/jury" routerLinkActive="active">Jury</a>
             </li>
-            <li *ngIf="!isLoggedIn">
+            <li *ngIf="!authService.IsUserLoggedin()">
               <a routerLink="/partners" routerLinkActive="active">Partners</a>
             </li>
-            <li *ngIf="!isLoggedIn">
+            <li *ngIf="!authService.IsUserLoggedin()">
               <a routerLink="/how-to-enter" routerLinkActive="active">How to Enter</a>
             </li>
-            <li *ngIf="!isLoggedIn">
+            <li *ngIf="!authService.IsUserLoggedin()">
               <a routerLink="/prize-fee" routerLinkActive="active">Prizes & Fees</a>
             </li>
-            <li *ngIf="!isLoggedIn">
+            <li *ngIf="!authService.IsUserLoggedin()">
               <a routerLink="/gallery" routerLinkActive="active">Gallery</a>
             </li>
-
           </ul>
         </nav>
       </div>
       <!-- End Navigation -->
 
       <br>
-      <a *ngIf="!isLoggedIn" class="btn btn-warning" routerLink="upload">Enter Competition</a>
+      <a *ngIf="!authService.IsUserLoggedin()" class="btn btn-warning" routerLink="upload">Enter Competition</a>
 
       <!-- Socials -->
       <div class="socials">
