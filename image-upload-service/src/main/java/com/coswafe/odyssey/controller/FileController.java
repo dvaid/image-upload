@@ -1,9 +1,7 @@
 package com.coswafe.odyssey.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,14 +13,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.coswafe.odyssey.dto.SubmissionDTO;
 import com.coswafe.odyssey.entities.Submission;
 import com.coswafe.odyssey.payload.UploadFileResponse;
 import com.coswafe.odyssey.service.FileStorageService;
@@ -36,9 +35,13 @@ public class FileController {
 	private FileStorageService fileStorageService;
 
 	@PostMapping("/uploadFile")
-	public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
+	public UploadFileResponse uploadFile(@Validated SubmissionDTO submissionRequest) {
 
-		final String fileName = fileStorageService.storeFile(file);
+		final MultipartFile file = submissionRequest.getFile();
+		final Submission submission = new Submission();
+		submission.setAuthor(submissionRequest.getAuthor());
+		submission.setBrief(submissionRequest.getBrief());
+		final String fileName = fileStorageService.storeFile(file, submission);
 
 		final String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
 				.path(fileName).toUriString();
@@ -46,10 +49,12 @@ public class FileController {
 		return new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
 	}
 
-	@PostMapping("/uploadMultipleFiles")
-	public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-		return Arrays.asList(files).stream().map(file -> uploadFile(file)).collect(Collectors.toList());
-	}
+	/*
+	 * @PostMapping("/uploadMultipleFiles") public List<UploadFileResponse>
+	 * uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) { return
+	 * Arrays.asList(files).stream().map(file ->
+	 * uploadFile(file)).collect(Collectors.toList()); }
+	 */
 
 	@GetMapping("{username}/downloadFile/{fileName:.+}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, @PathVariable String username,

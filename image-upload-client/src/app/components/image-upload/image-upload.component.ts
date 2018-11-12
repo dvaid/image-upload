@@ -14,6 +14,7 @@ export class ImageUploadComponent implements OnInit {
 
   public isLoggedIn: boolean;
   url: string = '';
+  brief: String = '';
   progressValue: Number;
   public selectedFile: File;
 
@@ -42,7 +43,8 @@ export class ImageUploadComponent implements OnInit {
   }
 
   uploadFile() {
-    const uploadData = new FormData();
+    let uploadData = new FormData();
+    uploadData.append('brief', this.brief.toString());
     uploadData.append('file', this.selectedFile, this.selectedFile.name);
     this.imageUploadService.savePendingUpload(uploadData);
     if (this.isLoggedIn) {
@@ -56,8 +58,9 @@ export class ImageUploadComponent implements OnInit {
 
   private doUpload(user: User) {
     let uploadData = this.imageUploadService.getPendingUpload();
+    uploadData.append('author', user.username);
     console.log("uploading file: " + uploadData + " for user: " + user);
-    this.http.post(AppComponent.API_URL+ `/uploadFile`, uploadData, {
+    this.http.post(AppComponent.API_URL + `/uploadFile`, uploadData, {
       reportProgress: true,
       observe: 'events'
     }).subscribe(event => {

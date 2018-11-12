@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
 
 import lombok.Data;
 import lombok.Setter;
@@ -61,6 +64,11 @@ public class Submission extends AuditableEntity {
 	@Column
 	private long fileSize;
 
+	@Column
+	@NotEmpty
+	@Length(min = 25, max = 250, message = "Please provide a brief description of your submission. Maximum 250 characters.")
+	private String brief;
+
 	public Long getId() {
 		return id;
 	}
@@ -80,4 +88,29 @@ public class Submission extends AuditableEntity {
 	public long getFileSize() {
 		return fileSize;
 	}
+
+	public String getBrief() {
+		return brief;
+	}
+
+	public void setBrief(String brief) {
+		this.brief = brief;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public void setDownloadUrl(String downloadUrl) {
+		this.downloadUrl = downloadUrl;
+	}
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+
+	public void setFileSize(long fileSize) {
+		this.fileSize = fileSize;
+	}
+
 }

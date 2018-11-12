@@ -20,9 +20,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 /**
- * Description of User.
  * 
- * @author kamal berriga
+ * @author dikshitv-l
+ *
  */
 @Entity
 @Table(name = "User")
@@ -49,6 +49,16 @@ public class User extends AuditableEntity implements UserDetails {
 	 */
 	@Column(unique = true)
 	private String username;
+
+	@Column(unique = true)
+	private String phoneNumber;
+
+	@Column(unique = true)
+	private String fbURL;
+
+	@Column(unique = true)
+	private String instaURL;
+
 	/**
 	 * Description of the property password.
 	 */
@@ -106,19 +116,12 @@ public class User extends AuditableEntity implements UserDetails {
 	}
 
 	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + "]";
-	}
-
-	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
 		return password;
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
 		return username;
 	}
 
@@ -148,6 +151,36 @@ public class User extends AuditableEntity implements UserDetails {
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getFbURL() {
+		return fbURL;
+	}
+
+	public void setFbURL(String fbURL) {
+		this.fbURL = fbURL;
+	}
+
+	public String getInstaURL() {
+		return instaURL;
+	}
+
+	public void setInstaURL(String instaURL) {
+		this.instaURL = instaURL;
+	}
+
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", phoneNumber=" + phoneNumber + ", fbURL=" + fbURL + ", instaURL="
+				+ instaURL + ", password=" + password + ", role=" + role + ", fullName=" + fullName + "]";
 	}
 
 }

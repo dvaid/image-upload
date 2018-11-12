@@ -60,7 +60,7 @@ public class FileStorageService {
 		return userDirectory.toAbsolutePath().toString();
 	}
 
-	public String storeFile(MultipartFile file) {
+	public String storeFile(MultipartFile file, Submission submission) {
 		final String userName = getUserName();
 		// Normalize file name
 		final String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -75,8 +75,12 @@ public class FileStorageService {
 			// Copy file to the target location (Replacing existing file with the same name)
 			Path targetLocation = this.fileStorageLocation.resolve(userName + File.separator + fileName);
 			Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-			final Submission submission = new Submission(userName, fileDownloadUri, file.getContentType(),
-					file.getSize());
+			// final Submission submission = new Submission(userName, fileDownloadUri,
+			// file.getContentType(),
+			// file.getSize());
+			submission.setFileSize(file.getSize());
+			submission.setFileType(file.getContentType());
+			submission.setDownloadUrl(fileDownloadUri);
 			submissionRepo.save(submission);
 			return fileName;
 		} catch (IOException ex) {

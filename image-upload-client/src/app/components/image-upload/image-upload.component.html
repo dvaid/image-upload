@@ -18,7 +18,7 @@
                         <input type='file' (change)="onSelectFile($event)">
                     </div>
                     <div class="contact-item field-full form-message">
-                        <textarea placeholder="A brief about your photo" name="story"></textarea>
+                        <textarea placeholder="A brief about your photo" name="story" [(ngModel)]="brief"></textarea>
                     </div>
                     <div class="contact-item form-submit">
                         <input name="button" type="button" id="submit" class="submit" value="Upload" (click)="uploadFile()">
