@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ImageUploadService } from '../../services/image-upload.service';
 import { AccountService } from '../../services/account.service';
 import { User } from '../../model/model.user';
+import { AppComponent } from '../../app.component';
 @Component({
   selector: 'image-upload',
   templateUrl: './image-upload.component.html',
@@ -56,7 +57,7 @@ export class ImageUploadComponent implements OnInit {
   private doUpload(user: User) {
     let uploadData = this.imageUploadService.getPendingUpload();
     console.log("uploading file: " + uploadData + " for user: " + user);
-    this.http.post(`/api/uploadFile`, uploadData, {
+    this.http.post(AppComponent.API_URL+ `/uploadFile`, uploadData, {
       reportProgress: true,
       observe: 'events'
     }).subscribe(event => {
