@@ -66,7 +66,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
 				.authorizeRequests()
 				// ignoring the guest's urls "
 				.antMatchers("/h2-console/**", "/account/register", "/account/login", "/logout", "/uploadFile",
-						"**/downloadFile/**")
+						"/downloadFile/**")
 				.permitAll()
 				// authenticate all remaining URLS
 				.anyRequest().fullyAuthenticated().and()

@@ -56,7 +56,7 @@ public class FileController {
 	 * uploadFile(file)).collect(Collectors.toList()); }
 	 */
 
-	@GetMapping("{username}/downloadFile/{fileName:.+}")
+	@GetMapping("/downloadFile/{username}/{fileName:.+}")
 	public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, @PathVariable String username,
 			HttpServletRequest request) {
 		// Load file as Resource
