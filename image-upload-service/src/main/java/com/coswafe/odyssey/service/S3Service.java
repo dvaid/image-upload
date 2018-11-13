@@ -21,7 +21,7 @@ import java.io.InputStream;
 import static org.apache.logging.log4j.util.Strings.isNotBlank;
 
 
-@Component
+//@Component
 @Slf4j
 public class S3Service {
 

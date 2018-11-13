@@ -68,7 +68,7 @@ export class ImageUploadComponent implements OnInit {
         console.log(event.total, event.loaded);
         this.progressValue = (event.loaded / event.total) * 100;
         if (this.progressValue == 100) {
-          this.router.navigate(['my-submissions']);
+          // this.router.navigate(['my-submissions']);
         }
         console.log(event);
       }

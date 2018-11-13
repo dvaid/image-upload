@@ -1,5 +1,7 @@
 package com.coswafe.odyssey.service;
 
+import static java.lang.String.format;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -9,9 +11,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
-import com.coswafe.odyssey.util.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,8 +26,7 @@ import com.coswafe.odyssey.exception.FileStorageException;
 import com.coswafe.odyssey.exception.MyFileNotFoundException;
 import com.coswafe.odyssey.property.FileStorageProperties;
 import com.coswafe.odyssey.repository.SubmissionRepository;
-
-import static java.lang.String.format;
+import com.coswafe.odyssey.util.FileUtils;
 
 @Service
 public class FileStorageService {
@@ -37,8 +36,8 @@ public class FileStorageService {
     @Autowired
     private SubmissionRepository submissionRepo;
 
-    @Autowired
-    private S3Service s3Service;
+    /*@Autowired
+    private S3Service s3Service;*/
 
     @Autowired
     public FileStorageService(FileStorageProperties fileStorageProperties) {
@@ -90,7 +89,7 @@ public class FileStorageService {
 			submission.setFileType(file.getContentType());
 			submission.setDownloadUrl(fileDownloadUri);
             final String imagePathWithName = format("%s/%s/%s", "uploads",userName, s3BucketFileName);
-            s3Service.putFile(imagePathWithName, file.getInputStream());
+//            s3Service.putFile(imagePathWithName, file.getInputStream());
 			submissionRepo.save(submission);
 			return fileName;
 		} catch (IOException ex) {
