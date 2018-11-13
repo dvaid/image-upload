@@ -28,7 +28,7 @@ import {HomeComponent} from './components/home/home.component';
 import {AboutUsComponent} from './components/about-us/about-us.component';
 import {SideNavComponent} from './components/side-nav/side-nav.component';
 import {JuryComponent} from './components/jury/jury.component';
-import {PartenersComponent} from './components/parteners/parteners.component';
+import {partnersComponent} from './components/partners/partners.component';
 import {HowToEnterComponent} from './components/how-to-enter/how-to-enter.component';
 import {PrizeFeeComponent} from './components/prize-fee/prize-fee.component';
 import {GalleryComponent} from './components/gallery/gallery.component';
@@ -56,7 +56,7 @@ import { PaymentFailureComponent } from './components/payment-failure/payment-fa
         AboutUsComponent,
         SideNavComponent,
         JuryComponent,
-        PartenersComponent,
+        partnersComponent,
         HowToEnterComponent,
         PrizeFeeComponent,
         GalleryComponent,

@@ -7,7 +7,7 @@ import {HomeComponent} from './components/home/home.component';
 import {AboutUsComponent} from './components/about-us/about-us.component';
 import {JuryComponent} from './components/jury/jury.component';
 import {HowToEnterComponent} from './components/how-to-enter/how-to-enter.component';
-import {PartenersComponent} from './components/parteners/parteners.component';
+import {partnersComponent} from './components/partners/partners.component';
 import {PrizeFeeComponent} from './components/prize-fee/prize-fee.component';
 import {GalleryComponent} from './components/gallery/gallery.component';
 import {MySubmissionsComponent} from './components/my-submissions/my-submissions.component';
@@ -19,7 +19,7 @@ const appRoutes: Routes = [
     {path: 'home', component: HomeComponent},
     {path: 'about-us', component: AboutUsComponent},
     {path: 'jury', component: JuryComponent},
-    {path: 'parteners', component: PartenersComponent},
+    {path: 'partners', component: partnersComponent},
     {path: 'how-to-enter', component: HowToEnterComponent},
     {path: 'prize-fee', component: PrizeFeeComponent},
     {path: 'gallery', component: GalleryComponent},
