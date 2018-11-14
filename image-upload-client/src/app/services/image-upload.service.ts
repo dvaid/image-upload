@@ -40,6 +40,8 @@ export class ImageUploadService {
     let uploadData = new FormData();
     uploadData.append('brief', localStorage.getItem('brief'));
     uploadData.append('file', this.base64ToFile(localStorage.getItem('file'), this.filename));
+    localStorage.removeItem('brief');
+    localStorage.removeItem('file');
     return uploadData;
   }
 }
