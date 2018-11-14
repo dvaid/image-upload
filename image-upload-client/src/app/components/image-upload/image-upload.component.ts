@@ -1,10 +1,11 @@
 import { HttpClient, HttpEventType } from '@angular/common/http';
-import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { ImageUploadService } from '../../services/image-upload.service';
-import { AccountService } from '../../services/account.service';
-import { User } from '../../model/model.user';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponent } from '../../app.component';
+import { User } from '../../model/model.user';
+import { AccountService } from '../../services/account.service';
+import { ImageUploadService } from '../../services/image-upload.service';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'image-upload',
   templateUrl: './image-upload.component.html',
@@ -12,24 +13,25 @@ import { AppComponent } from '../../app.component';
 })
 export class ImageUploadComponent implements OnInit {
 
-  public isLoggedIn: boolean;
   url: string = '';
   brief: String = '';
   progressValue: Number;
   public selectedFile: File;
-
-  private loggedInUser: User = JSON.parse(localStorage.getItem('currentUser'));
+  private selectedFileBase64String: String = "";
 
   constructor(private http: HttpClient, private imageUploadService: ImageUploadService, private accountService: AccountService,
-    private router: Router) { }
+    private router: Router, public authService: AuthService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.progressValue = 0;
-    if (this.loggedInUser) {
-      this.isLoggedIn = true;
-      // console.log(localStorage.getItem('currentUser'));
+    //3. if payment successful, emit event user-registered
+    if (this.route.snapshot.queryParams['payment'] === "success") {
+      // this.accountService.userRegistered(this.authService.user());
+      this.doUpload(this.authService.user());
     }
   }
+
   onSelectFile(event) {
     this.progressValue = 0;
     if (event.target.files && event.target.files[0]) {
@@ -39,20 +41,26 @@ export class ImageUploadComponent implements OnInit {
       reader.onload = (uploadProgressEvent) => { // called once readAsDataURL is completed
         this.url = reader.result;
       };
+      /* reader.readAsBinaryString(this.selectedFile);
+      reader.onload = (uploadProgressEvent) => {
+        var binaryString = (<FileReader>uploadProgressEvent.target).result;
+        this.selectedFileBase64String = btoa(binaryString);
+      } */
     }
   }
 
   uploadFile() {
     let uploadData = new FormData();
     uploadData.append('brief', this.brief.toString());
+    // uploadData.append('file', this.selectedFile, this.selectedFile.name);
     uploadData.append('file', this.selectedFile, this.selectedFile.name);
-    this.imageUploadService.savePendingUpload(uploadData);
-    if (this.isLoggedIn) {
-      this.doUpload(this.loggedInUser);
+    this.imageUploadService.savePendingUpload(this.selectedFile.name, uploadData);
+    if (this.authService.IsUserLoggedin()) {
+      this.doUpload(this.authService.user());
     } else {
       this.router.navigate(['register']);
       // subscribe to user registered behavior subject
-      this.accountService.userRegisteredSubject.subscribe(registeredUser => this.doUpload(registeredUser));
+      // this.accountService.userRegisteredSubject.subscribe(registeredUser => this.doUpload(registeredUser));
     }
   }
 
@@ -68,7 +76,7 @@ export class ImageUploadComponent implements OnInit {
         console.log(event.total, event.loaded);
         this.progressValue = (event.loaded / event.total) * 100;
         if (this.progressValue == 100) {
-          // this.router.navigate(['my-submissions']);
+          this.router.navigate(['my-submissions']);
         }
         console.log(event);
       }

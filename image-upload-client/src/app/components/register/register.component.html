@@ -84,7 +84,7 @@
                         </div>
                     </form>
 
-                    <form ngNoForm action="{{paymentUrl}}" method="POST" >
+                    <form ngNoForm action="{{paymentUrl}}" method="POST" *ngIf="isRegistered">
                         <input type="hidden" name="me_id" value="{{paymentData.me_id}}">
                         <input type="hidden" name="txn_details" value="{{paymentData.txn_details}}">
                         <input type="hidden" name="pg_details" value="{{paymentData.pg_details}}">
