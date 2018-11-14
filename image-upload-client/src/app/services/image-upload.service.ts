@@ -5,12 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class ImageUploadService {
 
-  private filename: String = "";
   constructor() { }
 
   savePendingUpload(filename, uploadData: FormData) {
-    this.filename = filename;
     localStorage.setItem('brief', uploadData.get('brief').toString());
+    localStorage.setItem('filename', filename.toString());
     this.fileToBase64(uploadData.get('file'));
   }
 
@@ -39,9 +38,10 @@ export class ImageUploadService {
   getPendingUpload(): FormData {
     let uploadData = new FormData();
     uploadData.append('brief', localStorage.getItem('brief'));
-    uploadData.append('file', this.base64ToFile(localStorage.getItem('file'), this.filename));
+    uploadData.append('file', this.base64ToFile(localStorage.getItem('file'), localStorage.getItem('filename')));
     localStorage.removeItem('brief');
     localStorage.removeItem('file');
+    localStorage.removeItem('filename');
     return uploadData;
   }
 }
