@@ -27,7 +27,6 @@ export class ImageUploadService {
     var reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function () {
-      console.log(reader.result);
       localStorage.setItem('file', reader.result.toString());
     };
     reader.onerror = function (error) {

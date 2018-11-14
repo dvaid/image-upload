@@ -5,7 +5,7 @@
             <h2 class="title">Upload a photo for the contest
                 <small> (max 5mb)</small>
             </h2>
-            <span *ngIf="!isLoggedIn">
+            <span *ngIf="!authService.IsUserLoggedin()">
                 or
                 <a routerLink="/login" class="text-primary">Login Here</a> to view submissions
             </span>
@@ -22,7 +22,7 @@
                     </div>
                     <div class="contact-item form-submit">
                         <input name="button" type="button" id="submit" class="submit" value="Upload" (click)="uploadFile()">
-                        <span *ngIf="!isLoggedIn">
+                        <span *ngIf="!authService.IsUserLoggedin()">
                             or
                             <a routerLink="/login" class="text-primary">Login Here</a>
                         </span>

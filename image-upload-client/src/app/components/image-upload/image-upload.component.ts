@@ -17,7 +17,6 @@ export class ImageUploadComponent implements OnInit {
   brief: String = '';
   progressValue: Number;
   public selectedFile: File;
-  private selectedFileBase64String: String = "";
 
   constructor(private http: HttpClient, private imageUploadService: ImageUploadService, private accountService: AccountService,
     private router: Router, public authService: AuthService,
