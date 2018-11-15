@@ -15,7 +15,7 @@
                 <mat-progress-bar mode="determinate" color="accent" [value]="progressValue"></mat-progress-bar>
                 <form id="singleUploadForm" name="singleUploadForm">
                     <div class="contact-item form-file">
-                        <input type='file' (change)="onSelectFile($event)">
+                        <input type='file' accept="image/*" (change)="onSelectFile($event)">
                     </div>
                     <div class="contact-item field-full form-message">
                         <textarea placeholder="A brief about your photo" name="story" [(ngModel)]="brief"></textarea>
