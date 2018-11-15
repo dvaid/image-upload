@@ -25,7 +25,7 @@ export class ImageUploadComponent implements OnInit {
 
   ngOnInit() {
     this.progressValue = 0;
-    //3. if payment successful, emit event user-registered
+    //3. if payment successful, do pending upload
     if (this.route.snapshot.queryParams['payment'] === "success") {
       // this.accountService.userRegistered(this.authService.user());
       this.doUpload(this.authService.user(), this.imageUploadService.getPendingUpload());
