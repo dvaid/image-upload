@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AppComponent } from '../app.component';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,7 @@ export class ImageUploadService {
           });
           console.log(compressedFile.size);
           _callback(compressedFile, self);
-        }, 'image/jpeg', .6);
+        }, 'image/jpeg', AppComponent.IMAGE_QUALITY / 100);
       },
         reader.onerror = error => console.log(error);
     };
